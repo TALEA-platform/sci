@@ -9,16 +9,16 @@ Downstream workflows, such as temporal aggregations and city-level zonal statist
 
 **Related Documentation:**
 
-- [Temporal Aggregation Reference (to update)]()
-- [Post-processing and Zonal Analysis (to update)]()
+- [Temporal Aggregation Documentation](/sci/documentation/Shadow_Aggregation_doc.md)
+- [Post-processing and Zonal Analysis Documentation](/sci/documentation/Shadow_PostProcessing_doc.md)
 
 ---
 
 ## 1. Input Data and Requirements
 
-The pipeline relies on two foundational input rasters that must be perfectly co-registered (sharing the exact same projected CRS, spatial resolution, matrix shape, and affine transform). They play distinctly different roles during the simulation:
+The pipeline relies on two foundational input rasters that must be perfectly co-registered (sharing the exact **same projected CRS**, spatial resolution, matrix shape, and affine transform). They play distinctly different roles during the simulation:
 
-- **The DTM (Digital Terrain Model) established the baseline:** It represents the bare-earth elevation needed to accurately place the "observer" at a specific height above street level (e.g. a pedestrian at 1.5 meters)
+- **The DTM (Digital Terrain Model) establishes the baseline:** It represents the bare-earth elevation needed to accurately place the "observer" at a specific height above street level (e.g. a pedestrian at 1.5 meters)
 - **The DSM (Digital Surface Model) provides the obstacles:** It captures the terrain alongside all elevated physical features (building, trees, infrastructure) that intersect and block the solar rays.
 
 ---
@@ -76,11 +76,11 @@ Because we are using 3 bits, the resulting raster will only contain integer valu
 |-------------|---------------|---------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **0**       | 0             | 0             | 0             | **Open Sunlit Ground:** No objects above height, both surface and ground are fully exposed to the sun.                                                                       |
 | **1**       | 0             | 0             | 1             | **Standard Ground Shadow:** Open ground shaded by a distant obstacle (e.g., a building casting a shadow on a square).                                                        |
-| **2**       | 0             | 1             | 0             | **Geometric Anomaly:** Surface is shaded but the ground is sunlit.                                                                                                           |
-| **3**       | 0             | 1             | 1             | **Geometric Anomaly** Both the ground and the surface are in shadow, but no object exists exactly here.                                                                      |
-| **4**       | 1             | 0             | 0             | **Sunlit Roof / Canopy (Rare imprecision):** An object exists, and its top surface is exposed to the sun. Ground shadow is marked false.                                     |
+| **2**       | 0             | 1             | 0             | **Impossible Value:** Surface is shaded but the ground is sunlit.                                                                                                            |
+| **3**       | 0             | 1             | 1             | **Impossible Value** Both the ground and the surface are in shadow, but no object exists exactly here.                                                                       |
+| **4**       | 1             | 0             | 0             | **Sunlit Roof / Canopy (Rare):** An object exists, and its top surface is exposed to the sun. Ground shadow is marked false.                                                 |
 | **5**       | 1             | 0             | 1             | **Sunlit Canopy over Shade:** An object exists with a sunlit top, but the ground beneath it is shaded (common for trees).                                                    |
-| **6**       | 1             | 1             | 0             | **Shaded Roof / Canopy (Rare imprecision):** An object exists, and its top surface is shaded by a taller adjacent structure.                                                 |
+| **6**       | 1             | 1             | 0             | **Shaded Roof / Canopy (Rare):** An object exists, and its top surface is shaded by a taller adjacent structure.                                                             |
 | **7**       | 1             | 1             | 1             | **Fully Shaded Object:** An object exists, and both its top surface and the ground beneath it are entirely in shadow.                                                        |
 
 ### 4.3 Decoding in Downstream Workflows
@@ -92,6 +92,8 @@ For example, to isolate *only* the Ground Shadow (`G_h`), apply a bitwise AND wi
 - Extract Ground Shadow: `Mask = (Raster & 1) > 0`
 - Extract Surface Shadow: `Mask = (Raster & 2) > 0`
 - Extract Object Presence: `Mask = (Raster & 4) > 0`
+- Total Shadow: `Mask = (Raster & 1) > 0 OR (Raster & 4) > 0`
+- Hybrid layer: `Mask = (Raster & 2) > 0 OR (((Raster & 1) > 0) AND ((Raster & 4) == 0))`
 
 This ensures that the master product can be easily unpacked into its constituent parts for specialized zonal statistics or temporal aggregation.
 
@@ -196,6 +198,6 @@ The value of the extraction pipeline lies in the versatility of its 3-bit encode
 
   - **Total Effective Shadow:** A combination of `G_h | S_h` provides a comprehensive view of all genuinely shaded surfaces, capturing both the shadows falling on the open ground (`G_h`) and those cast onto elevated structures and roofs (`S_h`).
 
-> These are few example of the usages, more information in [Temporal Aggregation doc (to update)]() and [Post-processing doc (to update)]()
+> These are few example of the usages, more information in [Temporal Aggregation doc](/sci/documentation/Shadow_Aggregation_doc.md) and [Post-processing doc](/sci/documentation/Shadow_PostProcessing_doc.md)
 
 ---
