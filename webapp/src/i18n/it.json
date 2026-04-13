@@ -1,0 +1,406 @@
+{
+  "header": {
+    "skipLink": "Vai al contenuto",
+    "subtitle": "Shadow Coverage Index",
+    "projectLink": "Progetto Talea"
+  },
+  "hero": {
+    "badge": "Progetto Talea \u2014 Comune di Bologna",
+    "title": "Shadow Coverage Index",
+    "subtitle": "Indicatore spazio-temporale della presenza di ombra in ambito urbano per la resilienza climatica",
+    "cta": "Inizia l'esplorazione",
+    "ariaLabel": "Introduzione"
+  },
+  "about": {
+    "buttonLabel": "Panoramica",
+    "sectionTitle": "Cos'\u00e8 lo Shadow Coverage Index",
+    "sectionSubtitle": "Panoramica, ambito e indicatori dell'indice",
+    "lead": "Lo Shadow Coverage Index \u00e8 un indicatore spazio-temporale della presenza di ombra a Bologna, sviluppato nell'ambito del progetto Talea per supportare l'adattamento climatico urbano e l'analisi del comfort termico. Quantifica dove e quando la luce solare diretta raggiunge il suolo, a diverse scale spaziali e temporali.",
+    "whyMatters": {
+      "title": "Perch\u00e9 l'ombra conta",
+      "text": "L'esposizione al sole cambia il modo in cui viviamo la città. Questa mappa mostra l'ombra creata dai palazzi e dagli alberi di Bologna, aiutandoci a:",
+      "bullets": [
+        "Scoprire i percorsi più ombreggiati durante le giornate estive.",
+        "Individuare le piazze e le strade più esposte al sole.",
+        "Capendo dove servirebbe più verde o nuovi ripari."
+      ]
+    },
+    "howWeMeasure": {
+      "title": "Come \u00e8 costruito l'indice",
+      "text": "L'indice deriva da una simulazione fisica della luce solare sul modello 3D della citt\u00e0 di Bologna (terreno, edifici e vegetazione). I risultati vengono convertiti in un insieme di indicatori leggibili a scale diverse, dal singolo intervallo di 15 minuti alla media mensile su un intero quartiere. I dettagli tecnici della pipeline sono documentati nella sezione \u00abCome funziona\u00bb."
+    },
+    "keyFacts": {
+      "title": "Dati essenziali",
+      "items": {
+        "model": {
+          "title": "Modello 3D ad alta risoluzione",
+          "text": "DTM + DSM di Bologna a risoluzione 0,5 \u00d7 0,5 m, con terreno, edifici e vegetazione."
+        },
+        "timestep": {
+          "title": "Passo temporale di 15 minuti",
+          "text": "Ombre simulate ogni quarto d'ora dall'alba al tramonto (altitudine solare \u2265 5\u00b0)."
+        },
+        "period": {
+          "title": "Estate 2025",
+          "text": "14 giornate rappresentative \u2014 tutte le domeniche di giugno, luglio e agosto 2025."
+        },
+        "scale": {
+          "title": "Dalle aree pilota alla citt\u00e0",
+          "text": "Analisi a livello di pixel su Centro e Fossolo (aree pilota Talea); statistiche zonali sull'intero territorio comunale."
+        }
+      }
+    },
+    "indicatorsTitle": "Cosa fornisce l'indice",
+    "indicatorsIntro": "Tre indicatori complementari, ciascuno dedicato a una domanda diversa sulla distribuzione spazio-temporale dell'ombra a Bologna.",
+    "indicators": {
+      "sampleDay": {
+        "label": "Vista 1",
+        "title": "Ombre istantanee sulle aree pilota Talea",
+        "description": "Mappe di ombra a risoluzione di 15 minuti per tre giornate rappresentative dell'estate (15 giugno, 13 luglio e 10 agosto 2025) sulle aree pilota di Centro e Fossolo. Ogni fotogramma mostra il pattern di ombra istantaneo all'orario selezionato."
+      },
+      "aggregations": {
+        "label": "Vista 2",
+        "title": "Frequenza media di ombra per mese e fascia oraria",
+        "description": "Per ciascuno dei tre mesi estivi (giugno, luglio, agosto 2025) la frequenza di ombra \u00e8 calcolata su cinque fasce orarie: primo mattino (6\u20139), mattina (9\u201312), picco termico (12\u201315), pomeriggio (15\u201318) e sera (18\u201321). Sono disponibili layer separati per l'ombra a livello del suolo, sulle superfici elevate (tetti e chiome) e la vista \u201cOmbra aggregata\u201d (dove edifici e alberi contano come ombra), sulle aree pilota Talea."
+      },
+      "polygons": {
+        "label": "Vista 3",
+        "title": "Statistiche zonali di ombra sul territorio di Bologna",
+        "description": "Statistiche di ombra per poligono (media, mediana, deviazione standard, percentili) calcolate per i 6 quartieri, le 90 zone statistiche, le circa 4.000 aree verdi e gli oltre 10.000 segmenti stradali del Comune di Bologna. Ogni poligono \u00e8 analizzato in modo indipendente per ciascun mese e sulle stesse cinque fasce orarie della Vista 2."
+      }
+    },
+    "closingNote": "Questa \u00e8 una prima release dell'indice, basata sui dati dell'estate 2025. Nuovi mesi, dataset e indicatori verranno aggiunti con l'avanzamento del progetto Talea. Per i dettagli tecnici della pipeline \u2014 ray-tracing, codifica a 3 bit, aggregazione temporale e statistiche zonali \u2014 si rimanda alla sezione \u00abCome funziona\u00bb."
+  },
+  "tabs": {
+    "day": { "label": "Giornata Esempio", "desc": "Ombre in tempo reale" },
+    "aggregations": { "label": "Aggregazioni", "desc": "Pattern temporali medi" },
+    "polygons": { "label": "Statistiche", "desc": "Aggregazione spaziale" },
+    "ariaLabel": "Viste esplorazione"
+  },
+  "config": {
+    "areas": {
+      "centro": "Centro",
+      "fossolo": "Fossolo"
+    },
+    "periods": {
+      "month": "Intero mese",
+      "earlymorning": "Prima mattina (6\u201309)",
+      "morning": "Mattina (9\u201312)",
+      "peakthermal": "Picco termico (12\u201315)",
+      "afternoon": "Pomeriggio (15\u201318)",
+      "evening": "Sera (18\u201321)"
+    },
+    "polygonLayers": {
+      "quartieri": "Quartieri",
+      "stat_zones": "Zone Statistiche",
+      "green_areas": "Aree Verdi",
+      "streets": "Segmenti Stradali"
+    },
+    "surfaceTypes": {
+      "ground": "Suolo",
+      "roof": "Tetti",
+      "both": "Suolo + Tetti",
+      "total": "Ombra aggregata"
+    },
+    "metrics": {
+      "mean": { "label": "Media", "description": "Valore medio di ombreggiamento" },
+      "median": { "label": "Mediana", "description": "Valore mediano di ombreggiamento" },
+      "std": { "label": "Deviazione std.", "description": "Variabilit\u00e0 dell'ombra all'interno del poligono" },
+      "pct_ge_50": { "label": "\u2265 50%", "description": "Percentuale di tempo con ombra \u2265 50%" },
+      "pct_ge_75": { "label": "\u2265 75%", "description": "Percentuale di tempo con ombra \u2265 75%" }
+    }
+  },
+  "controls": {
+    "area": "Area",
+    "date": "Data",
+    "month": "Mese",
+    "time": "Orario",
+    "period": "Fascia oraria",
+    "metric": "Metrica",
+    "layer": "Layer",
+    "displayMode": "Visualizzazione",
+    "satellite": "Vista satellite",
+    "gray": "Scala di grigi",
+    "diverging": "Divergente",
+    "multi": "Categorie",
+    "opacity": "Trasparenza",
+    "step": "Passo",
+    "stepBack": "Indietro",
+    "stepForward": "Avanti",
+    "surfaceType": "Tipo di superficie",
+    "colorMode": "Colore",
+    "surfaceTypeDesc": {
+      "ground": "Frequenza di ombra al livello del suolo (1,5 m). I tetti degli edifici non sono mostrati.",
+      "roof_surface": "Frequenza di ombra sulle superfici elevate (tetti, chiome). Il suolo non \u00e8 mostrato.",
+      "both": "Mostra contemporaneamente suolo e tetti come due livelli sovrapposti.",
+      "total": "Vista ombra aggregata: edifici e alberi sono trattati come ombra, quindi ogni pixel coperto da una struttura elevata conta come ombreggiato. Questo \u00e8 il layer usato per le statistiche di aggregazione spaziale."
+    }
+  },
+  "dayExplorer": {
+    "viewNumber": "Vista 1",
+    "title": "Giornata Esempio",
+    "description": "Osserva come le ombre si muovono durante la giornata. Seleziona un'area e una data, poi usa lo slider per scorrere le ore.",
+    "legendTitle": "Ombreggiamento",
+    "sunPhases": {
+      "dawn": "Alba",
+      "morning": "Mattina",
+      "noon": "Mezzogiorno",
+      "afternoon": "Pomeriggio",
+      "dusk": "Tramonto"
+    },
+    "timeContext": "Stai vedendo le ombre alle {time} del {date} nell'area {area}.",
+    "timeRangeNote": "Orari disponibili per questa data: {start} \u2013 {end} (soglia solare > 5\u00b0)",
+    "info": {
+      "title": "Informazioni \u2014 Giornata Esempio",
+      "whatYouSee": "Cosa stai vedendo",
+      "whatYouSeeText": "Questa vista mostra le ombre proiettate dagli edifici in un momento specifico della giornata. I dati sono calcolati a partire da un modello digitale di superficie (DSM) e un modello digitale del terreno (DTM) della citt\u00e0 di Bologna, utilizzando un algoritmo di ray-tracing ad alta risoluzione che simula fisicamente la traiettoria dei raggi solari.",
+      "howToRead": "Come leggere i colori",
+      "howToReadMulti": "In modalit\u00e0 \"Categorie\", ogni colore rappresenta una diversa condizione fisica del pixel, basata su una codifica a 3 bit che risponde a tre domande distinte:",
+      "howToReadMultiList": [
+        "Il suolo a livello pedonale \u00e8 in ombra? (ombra pedonale, G_h)",
+        "La superficie elevata (tetto, chioma) \u00e8 in ombra proiettata da s\u00e9 stessa o da un altro oggetto elevato? (ombra superficiale, S_h)",
+        "\u00c8 presente un oggetto (edificio, albero) sopra l'altezza di analisi? (maschera oggetto, M_h)"
+      ],
+      "howToReadSatellite": "In modalit\u00e0 \"Vista satellite\", la mappa mostra l\u2019ombra cos\u00ec come apparirebbe dall\u2019alto: ombra proiettata al suolo e ombra di edifici su altri edifici.",
+      "howToReadGray": "In modalit\u00e0 \"Scala di grigi\", ogni categoria ha una diversa intensit\u00e0 di grigio: pi\u00f9 scuro indica maggiore ombreggiamento.",
+      "heightTitle": "Altezza di analisi",
+      "heightText": "Le ombre sono calcolate ad un'altezza di 1,5 metri + epsilon sopra il livello del terreno. Questo rappresenta l'altezza approssimativa della parte superiore del torso di un pedone adulto. Utilizzare 1,5 m + \u03b5 evita anche errori da oggetti bassi appena sopra la soglia.",
+      "timezoneTitle": "Fuso orario e orari",
+      "timezoneText": "Tutti gli orari sono in fuso Europe/Rome (CET/CEST). Lo slider copre dalle 6:00 alle 21:00 con intervalli di 15 minuti. Ogni posizione corrisponde a una mappa di ombreggiamento calcolata per quel preciso orario.",
+      "solarTitle": "Soglia solare",
+      "solarText": "I dati vengono calcolati solo quando l'altitudine solare \u00e8 superiore a 5 gradi sopra l'orizzonte. Questo significa che nelle prime ore del mattino (intorno alle 6:00) e nelle ultime ore della sera (intorno alle 21:00), alcuni orari potrebbero non avere dati disponibili.",
+      "datesTitle": "Date disponibili",
+      "datesText": "Sono disponibili 3 date rappresentative dei mesi estivi: 15 giugno, 13 luglio e 10 agosto 2025. Ogni data ha un diverso intervallo di orari disponibili, perch\u00e9 la posizione del sole cambia nel corso della stagione. A giugno il sole sorge prima e tramonta pi\u00f9 tardi rispetto ad agosto.",
+      "disclaimerTitle": "Presenza solare, non intensit\u00e0",
+      "disclaimerText": "Questa mappa mostra dove il sole \u00e8 presente e dove no, non quanto sia intenso. Il sole del tardo pomeriggio ha un impatto termico molto diverso dal sole di mezzogiorno. Questi dati indicano la presenza/assenza di luce solare diretta, senza pesare la radiazione solare per ora del giorno."
+    }
+  },
+  "aggregationExplorer": {
+    "viewNumber": "Vista 2",
+    "title": "Aggregazioni Temporali",
+    "description": "Analizza i pattern medi di ombreggiamento. Questa vista non mostra un singolo momento, ma il comportamento tipico dell'ombra in una fascia oraria.",
+    "contextBox": "Frequenza di ombreggiamento aggregata per {month} durante {period} nell'area {area}. Superficie: {surface}.",
+    "info": {
+      "title": "Informazioni \u2014 Aggregazioni Temporali",
+      "whatYouSee": "Cosa stai vedendo",
+      "whatYouSeeText": "Questa vista mostra il pattern medio di ombreggiamento per il mese e la fascia oraria selezionati. Non rappresenta un singolo momento, ma un'aggregazione statistica: per ciascun mese e ciascuna delle cinque fasce orarie, il sistema ha contato quante volte ogni pixel risultava in ombra rispetto al totale delle osservazioni valide su tutte le domeniche di quel mese (giugno: 5 domeniche, luglio: 4, agosto: 5), producendo una frequenza di ombreggiamento (0\u2013100%).",
+      "freqExplainTitle": "Cosa significa la frequenza",
+      "freqExplainText": "Un valore del 75% per un pixel significa che, durante il periodo selezionato, quel punto era in ombra il 75% del tempo. Un valore dello 0% significa che era sempre al sole (colore chiaro), mentre il 100% indica che era sempre in ombra (colore scuro).",
+      "surfaceTypesTitle": "Tipi di superficie",
+      "surfaceTypesText": "Per ogni periodo sono disponibili tre livelli di analisi distinti, perch\u00e9 il modello distingue ci\u00f2 che accade al suolo da ci\u00f2 che accade in alto. Puoi sceglierli singolarmente, sovrapporli oppure usare la vista \u201cOmbra aggregata\u201d dove edifici e alberi contano anch'essi come ombra.",
+      "timeBandsTitle": "Fasce orarie",
+      "timeBandsText": "Per ogni mese, la frequenza di ombra \u00e8 calcolata separatamente su cinque fasce orarie. Ogni fascia include le ore dall'inizio (incluso) fino alla fine (esclusa):",
+      "timeBandsList": {
+        "earlymorning": "Prima mattina: dalle 6:00 alle 8:59 (ore 6, 7, 8)",
+        "morning": "Mattina: dalle 9:00 alle 11:59 (ore 9, 10, 11)",
+        "peakthermal": "Picco termico: dalle 12:00 alle 14:59 (ore 12, 13, 14)",
+        "afternoon": "Pomeriggio: dalle 15:00 alle 17:59 (ore 15, 16, 17)",
+        "evening": "Sera: dalle 18:00 fino alle 20:59 quando disponibile (ore 18, 19, 20)"
+      },
+      "partialHoursTitle": "Ore parziali",
+      "partialHoursText": "Le ore 6 e 20 potrebbero contenere dati incompleti. Poich\u00e9 i dati vengono calcolati solo con altitudine solare > 5\u00b0, all'alba e al tramonto alcuni timestamp potrebbero essere esclusi.",
+      "metricsTitle": "Metriche disponibili",
+      "diffTitle": "Differenza con la Vista 1",
+      "diffText": "La vista \"Giornata Esempio\" mostra un singolo istante nel tempo. Qui invece vedi la frequenza media di ombra aggregata su tutte le osservazioni valide all'interno di un dato mese e fascia oraria.",
+      "disclaimerTitle": "Presenza solare, non intensit\u00e0",
+      "disclaimerText": "Questa mappa mostra la frequenza con cui un punto \u00e8 in ombra, non l'intensit\u00e0 della radiazione solare. Una strada con alta esposizione solare nelle ore serali ha un impatto termico molto diverso da una con la stessa esposizione nelle ore centrali. I dati non pesano la radiazione solare per ora del giorno."
+    }
+  },
+  "polygonExplorer": {
+    "viewNumber": "Vista 3",
+    "eyebrow": "Aggregazione spaziale",
+    "title": "Statistiche di Ombra per Unit\u00e0 Spaziale",
+    "description": "Statistiche di ombreggiamento aggregate per ogni quartiere, zona statistica, area verde o tratto stradale di Bologna. Ogni poligono \u00e8 colorato in base alla metrica selezionata. Le statistiche sono calcolate solo sui pixel al suo interno, indipendentemente dagli altri. Cambia il livello di dettaglio con il selettore layer: 6 quartieri per una panoramica cittadina, segmenti stradali per un'analisi di dettaglio.",
+    "loading": "Caricamento dati\u2026",
+    "loadError": "Impossibile caricare i dati per questa selezione.",
+    "info": {
+      "title": "Informazioni \u2014 Aggregazione Spaziale",
+      "whatYouSee": "Cosa stai vedendo",
+      "whatYouSeeText": "Questa vista raggruppa tutti i pixel di ombreggiamento all'interno di un poligono (quartiere, zona statistica, area verde o segmento stradale) e ne calcola le statistiche per ciascun mese e sulle stesse cinque fasce orarie della Vista 2. Ogni poligono ha valori di media, mediana e percentuali calcolati solo sui pixel contenuti al suo interno. Quattro livelli di dettaglio diversi permettono di passare da una panoramica cittadina (6 quartieri) a un'analisi sul singolo tratto stradale.",
+      "sourceTitle": "Sorgente dati: \u201cOmbra aggregata\u201d",
+      "sourceText": "Le statistiche di questa vista sono calcolate sulla mappa \u201cOmbra aggregata\u201d \u2014 la stessa visualizzabile come tipo di superficie nella Vista 2. In questa rappresentazione, edifici e alberi vengono trattati come ombra: ogni pixel coperto da una struttura elevata conta esattamente come un pixel ombreggiato a livello del suolo. Ad esempio, la chioma di un albero conta come ombra anche se la chioma stessa \u00e8 al sole; un portico conta come ombra perch\u00e9 il suo tetto \u00e8 sopra 1,5 m. Di conseguenza, una zona con molti edifici alti o vegetazione fitta avr\u00e0 valori di ombra elevati anche se le strade aperte sono soleggiate.",
+      "meanOfMeansTitle": "Media di medie sull'arco temporale",
+      "meanOfMeansText": "Il valore di media (e mediana) mostrato per il periodo selezionato \u00e8 una media delle medie temporali calcolate sulla mappa \u201cOmbra aggregata\u201d. In altre parole, per ogni mese e fascia oraria del range scelto si calcola la media spaziale del poligono sulla vista ombra aggregata, poi queste medie temporali vengono nuovamente mediate. Questo rende i confronti tra periodi pi\u00f9 stabili rispetto a una semplice media puntuale.",
+      "independentTitle": "Calcolo per singolo poligono",
+      "independentText": "Importante: ogni poligono \u00e8 analizzato in modo completamente indipendente. Il valore mostrato per uno specifico poligono rappresenta solo i pixel al suo interno e NON \u00e8 normalizzato o confrontato con gli altri poligoni. Due poligoni con lo stesso colore hanno la stessa frequenza di ombra in valore assoluto, ma il loro contesto microclimatico reale (esposizione, altezza degli edifici, vegetazione circostante) pu\u00f2 essere molto diverso.",
+      "layersTitle": "Layer disponibili",
+      "layers": {
+        "quartieri": "i sei quartieri amministrativi in cui \u00e8 suddiviso il Comune di Bologna; offrono la visione d'insieme pi\u00f9 sintetica, utile per confrontare ampie porzioni della citt\u00e0",
+        "stat_zones": "unit\u00e0 territoriali ufficiali del Comune di Bologna utilizzate per analisi demografiche e di pianificazione urbanistica",
+        "green_areas": "parchi, giardini, aree gioco e spazi verdi censiti dal Comune di Bologna",
+        "streets": "segmenti del grafo viario di Bologna; ciascun tratto \u00e8 analizzato come un poligono separato"
+      },
+      "metricsTitle": "Metriche disponibili",
+      "metricsList": {
+        "mean": "frequenza media di ombreggiamento sui pixel del poligono (0\u20131, dove 1 = sempre in ombra)",
+        "median": "valore mediano della frequenza di ombra all'interno del poligono",
+        "std": "deviazione standard della frequenza di ombra all'interno del poligono: misura quanto i pixel siano omogenei o eterogenei. Un valore basso indica che tutto il poligono ha un'esposizione simile (tutto al sole o tutto in ombra). Un valore alto significa che convivono porzioni molto soleggiate e porzioni molto ombrose, anche se la media \u00e8 intermedia."
+      },
+      "colorScaleTitle": "Scala di colori (0\u2013100%)",
+      "colorScaleText": "I colori usano una scala divergente RdYlBu: 0% di ombra (sempre al sole) \u00e8 rosso, 50% \u00e8 giallo pallido e 100% (sempre in ombra) \u00e8 blu intenso. Poich\u00e9 la scala \u00e8 fissa e assoluta, i colori sono direttamente confrontabili tra poligoni, mesi e fasce orarie.",
+      "interactionTitle": "Interazione e ricerca",
+      "interactionText": "Passa il mouse sopra un poligono nella mappa per vedere il nome, l'area e tutte le statistiche. Usa la barra di ricerca sopra la tabella per filtrare per nome (zona, parco o tratto stradale). Clicca le intestazioni della tabella per ordinare.",
+      "disclaimerTitle": "Presenza solare, non intensit\u00e0",
+      "disclaimerText": "I valori mostrano la frequenza di ombreggiamento, non l'intensit\u00e0 della radiazione solare. Una zona con alta esposizione al sole serale ha un impatto termico molto diverso dalla stessa esposizione nelle ore centrali. Vedi le informazioni nella Vista 2 e nella sezione \u201cCome funziona\u201d per maggiori dettagli."
+    }
+  },
+  "legend": {
+    "shadow": {
+      "pixel0": "Suolo soleggiato",
+      "pixel0Desc": "Terreno privo di edifici o alberi, esposto alla luce solare diretta.",
+      "pixel1": "Ombra a terra",
+      "pixel1Desc": "Il suolo \u00e8 in ombra, proiettata da un edificio, albero o altra struttura.",
+      "pixelElevatedSun": "Superficie rialzata al sole (Edifici, Alberi)",
+      "pixelElevatedSunDesc": "Superficie di un edificio, albero o altra struttura elevata esposta alla luce solare, vista dall'alto.",
+      "pixelElevatedShadow": "Superficie rialzata in ombra (Edifici, Alberi)",
+      "pixelElevatedShadowDesc": "Superficie di un edificio, albero o altra struttura elevata in ombra, proiettata da s\u00e9 stessa o da una struttura adiacente.",
+      "satelliteSun": "Al sole",
+      "satelliteSunDesc": "Superficie visibile dall\u2019alto in pieno sole.",
+      "satelliteShadow": "In ombra",
+      "satelliteShadowDesc": "Superficie visibile dall\u2019alto in ombra.",
+      "satelliteNote": "Vista dall\u2019alto: mostra l\u2019ombra visibile al suolo e sugli edifici, come in un\u2019immagine satellitare."
+    },
+    "aggregation": {
+      "p0":   "0% \u2014 sempre al sole",
+      "p10":  "10% in ombra",
+      "p20":  "20% in ombra",
+      "p30":  "30% in ombra",
+      "p40":  "40% in ombra",
+      "p50":  "50% \u2014 met\u00e0 e met\u00e0",
+      "p60":  "60% in ombra",
+      "p70":  "70% in ombra",
+      "p80":  "80% in ombra",
+      "p90":  "90% in ombra",
+      "p100": "100% \u2014 sempre in ombra"
+    },
+    "polygon": {
+      "p0":   "0% \u2014 sempre al sole",
+      "p10":  "10% in ombra",
+      "p20":  "20% in ombra",
+      "p30":  "30% in ombra",
+      "p40":  "40% in ombra",
+      "p50":  "50% \u2014 met\u00e0 e met\u00e0",
+      "p60":  "60% in ombra",
+      "p70":  "70% in ombra",
+      "p80":  "80% in ombra",
+      "p90":  "90% in ombra",
+      "p100": "100% \u2014 sempre in ombra"
+    }
+  },
+  "methodology": {
+    "sectionTitle": "Come funziona",
+    "sectionSubtitle": "Scopri come vengono calcolate le ombre urbane",
+    "intro": "Il calcolo delle ombre si basa sulla morfologia tridimensionale della città. Attraverso l'uso di modelli 3D ad alta risoluzione, viene simulata la posizione del sole in vari momenti della giornata per determinare dove la luce solare diretta raggiunge il suolo e le superfici elevate.",
+    "whatWeModel": {
+      "title": "Cosa modelliamo",
+      "text": "Partiamo da due modelli digitali della citt\u00e0: il DTM (Modello Digitale del Terreno), che rappresenta il terreno nudo senza edifici o vegetazione, e il DSM (Modello Digitale di Superficie), che include tutti gli elementi in elevazione come edifici, alberi e infrastrutture. Confrontando questi due modelli e simulando la posizione esatta del sole in ogni momento, possiamo calcolare con precisione dove cadono le ombre."
+    },
+    "threeQuestions": {
+      "title": "Tre domande per ogni punto",
+      "text": "Per ogni punto della citt\u00e0, ad ogni istante di tempo, il nostro modello risponde a tre domande fondamentali:",
+      "q1": "Il suolo a livello pedonale (1,5 m) \u00e8 in ombra?",
+      "q1detail": "Indica se un pedone in quel punto sarebbe al sole o all'ombra.",
+      "q2": "La superficie elevata (tetto, chioma) \u00e8 in ombra proiettata da s\u00e9 stessa o da un altro oggetto elevato?",
+      "q2detail": "Rileva quando un edificio o un albero proietta ombra sulla propria superficie o su strutture elevate adiacenti. Utile per capire l'esposizione solare di tetti e chiome degli alberi, rilevante per energia solare e salute della vegetazione.",
+      "q3": "\u00c8 presente una struttura (edificio, albero) in quel punto?",
+      "q3detail": "Distingue il suolo aperto (strade, piazze, parchi) dalle aree occupate da edifici o vegetazione."
+    },
+    "pedestrianHeight": {
+      "title": "Perch\u00e9 1,5 metri?",
+      "text": "L'altezza di analisi di 1,5 metri + epsilon rappresenta l'altezza approssimativa della parte superiore del torso di un pedone adulto. Utilizzare 1,5 m + \u03b5 come soglia evita anche errori di calcolo causati da oggetti bassi (arredo urbano, muretti)."
+    },
+    "timezone": {
+      "title": "Fuso orario e periodo",
+      "text": "Tutti i dati utilizzano il fuso orario Europe/Rome (CET in inverno, CEST in estate). Le simulazioni coprono le ore dalle 6:00 alle 21:00 con una risoluzione temporale di 15 minuti."
+    },
+    "solarThreshold": {
+      "title": "Soglia di altitudine solare",
+      "text": "Il modello calcola le ombre solo quando il sole \u00e8 pi\u00f9 di 5 gradi sopra l'orizzonte. Questo esclude i momenti di alba e tramonto in cui le ombre sarebbero estremamente lunghe e poco affidabili. Di conseguenza, le ore 6:00 e 21:00 potrebbero contenere dati parziali."
+    },
+    "gpuNote": {
+      "title": "Tecnologia",
+      "text": "Le simulazioni utilizzano un algoritmo di ray-tracing accelerato da GPU che lancia raggi a partire da ogni pixel del modello 3D a 0,5 \u00d7 0,5 m (con un passo di calcolo di pixel/2), garantendo alta precisione spaziale. Ogni raggio viene testato contro l'intera geometria DSM per determinare lo stato di sole o ombra."
+    }
+  },
+  "limitations": {
+    "sectionTitle": "Assunzioni e limiti del modello",
+    "intro": "\u00c8 importante comprendere i limiti del modello per interpretare correttamente i risultati.",
+    "solarDisclaimer": {
+      "title": "Presenza solare \u2260 Intensit\u00e0 solare",
+      "text": "Questa \u00e8 l'informazione pi\u00f9 importante da tenere presente: i dati mostrano DOVE il sole \u00e8 presente e per QUANTO tempo, ma non pesano l'intensit\u00e0 della radiazione solare. Il sole delle 18:00 ha un impatto termico completamente diverso dal sole delle 12:00, anche se entrambi vengono conteggiati allo stesso modo. Se una strada risulta molto soleggiata nelle ore serali, questo non equivale alla stessa esposizione nelle ore pi\u00f9 calde del giorno."
+    },
+    "opaqueCanopy": {
+      "title": "Vegetazione come corpo opaco",
+      "text": "Il modello tratta tutti gli oggetti elevati (inclusi gli alberi) come completamente opachi. Nella realt\u00e0, le chiome degli alberi filtrano parzialmente la luce. Questo rende le stime dell'ombra sotto gli alberi conservative (pi\u00f9 ombra di quella reale)."
+    },
+    "transientObjects": {
+      "title": "Oggetti temporanei",
+      "text": "Il DSM cattura lo stato della citt\u00e0 al momento del rilievo. Veicoli parcheggiati, ponteggi, gru e altre strutture temporanee presenti durante il rilievo vengono trattati come ostacoli permanenti."
+    },
+    "waterBodies": {
+      "title": "Corpi idrici",
+      "text": "Fiumi e specchi d'acqua possono introdurre artefatti nel DSM a causa della riflessione durante l'acquisizione LIDAR. La maschera degli oggetti (M_h) in queste aree potrebbe essere inaccurata."
+    },
+    "multiLevel": {
+      "title": "Infrastrutture multi-livello",
+      "text": "Strutture come ponti, cavalcavia e portici vengono collassate in un singolo valore di altezza nel DSM. L'interpretazione dell'ombra sotto queste strutture richiede cautela."
+    },
+    "nearHorizon": {
+      "title": "Esclusione all'orizzonte",
+      "text": "Le simulazioni escludono i momenti con altitudine solare \u2264 5\u00b0. I dati rappresentano quindi la finestra di \"luce diurna operativa\" piuttosto che l'intero giorno astronomico."
+    },
+    "shadowNotCooler": {
+      "title": "Ombra \u2260 pi\u00f9 fresco",
+      "text": "L'ombra indica l'assenza di luce solare diretta, non necessariamente temperature pi\u00f9 basse. Materiali come asfalto e pietra trattengono il calore a lungo dopo che il sole si \u00e8 spostato, mentre la vegetazione raffredda tramite evapotraspirazione anche in zone soleggiate. Una strada ombreggiata con pavimentazione scura pu\u00f2 essere pi\u00f9 calda di un parco aperto con erba e alberi."
+    }
+  },
+  "dataTable": {
+    "title": "Dati \u2014 {layer}",
+    "name": "Nome",
+    "category": "Categoria",
+    "area": "Area (m\u00b2)",
+    "interpretation": "Interpretazione",
+    "searchPlaceholder": "Cerca per nome\u2026",
+    "showingCount": "{shown} di {total}",
+    "showingRange": "{from}\u2013{to} di {total}",
+    "pageOf": "Pagina {page} di {total}",
+    "first": "Prima pagina",
+    "prev": "Pagina precedente",
+    "next": "Pagina successiva",
+    "last": "Ultima pagina",
+    "noResults": "Nessun risultato per \u00ab{query}\u00bb",
+    "emptyText": "I dati della tabella verranno caricati con il dataset.",
+    "emptyHint": "Seleziona un layer, mese e periodo per visualizzare i valori."
+  },
+  "hoverCard": {
+    "perPolygonNote": "Statistiche calcolate solo su questo poligono.",
+    "selected": "Selezionata"
+  },
+  "mapPlaceholder": "I layer dati ombra verranno visualizzati qui",
+  "common": {
+    "info": "Info",
+    "close": "Chiudi",
+    "understood": "Ho capito, chiudi",
+    "information": "Informazioni",
+    "loading": "Caricamento\u2026",
+    "loadError": "Impossibile caricare la mappa.",
+    "retry": "Riprova"
+  },
+  "basemaps": {
+    "label": "Mappa di base",
+    "osm": "OpenStreetMap",
+    "dark": "Scuro",
+    "light": "Chiaro",
+    "ortho": "Ortofoto Bologna"
+  },
+  "footer": {
+    "tagline": "Green cells leading the Green transition",
+    "funding": "Progetto co-finanziato dall'Unione Europea",
+    "eui": "European Urban Initiative",
+    "credits": "Comune di Bologna \u2014 TALEA EUI102-064"
+  },
+  "timeBands": {
+    "note6": "L'ora 6 potrebbe avere dati incompleti (soglia solare > 5\u00b0)",
+    "note20": "L'ora 20 potrebbe avere dati incompleti (soglia solare > 5\u00b0)"
+  }
+}
