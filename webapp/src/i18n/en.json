@@ -1,0 +1,406 @@
+{
+  "header": {
+    "skipLink": "Skip to content",
+    "subtitle": "Shadow Coverage Index",
+    "projectLink": "Talea Project"
+  },
+  "hero": {
+    "badge": "Talea Project \u2014 City of Bologna",
+    "title": "Shadow Coverage Index",
+    "subtitle": "Spatio-temporal indicator of shadow presence in urban environments for climate resilience",
+    "cta": "Start exploring",
+    "ariaLabel": "Introduction"
+  },
+  "about": {
+    "buttonLabel": "Overview",
+    "sectionTitle": "About the Shadow Coverage Index",
+    "sectionSubtitle": "Overview, scope and indicators of the index",
+    "lead": "The Shadow Coverage Index is a spatio-temporal indicator of shade presence in Bologna, developed within the Talea project to support urban climate adaptation and thermal-comfort analysis. It quantifies where and when direct sunlight reaches the ground across the city, at different spatial and temporal scales.",
+    "whyMatters": {
+      "title": "Why shadows matter",
+      "text": "Sun exposure changes the way we experience the city. This map shows the shadows created by Bologna's buildings and trees, helping us to:",
+      "bullets": [
+        "Discover the shadiest routes during hot summer days.",
+        "Identify the squares and streets most exposed to the sun.",
+        "Understanding where more greenery or new shelters are needed."
+      ]
+    },
+    "howWeMeasure": {
+      "title": "How the index is built",
+      "text": "The index is derived from a physical sunlight simulation over Bologna's 3D city model (terrain, buildings and vegetation). The results are converted into a set of indicators designed to be read at different scales, from a single 15-minute step to a month-long summary over an entire district. Technical details of the pipeline are documented in the \u201cHow it works\u201d section."
+    },
+    "keyFacts": {
+      "title": "Key facts",
+      "items": {
+        "model": {
+          "title": "High-resolution 3D model",
+          "text": "DTM + DSM of Bologna at 0.5 × 0.5 m resolution, including terrain, buildings and vegetation."
+        },
+        "timestep": {
+          "title": "15-minute time step",
+          "text": "Shadows simulated every quarter-hour from sunrise to sunset (solar altitude \u2265 5\u00b0)."
+        },
+        "period": {
+          "title": "Summer 2025",
+          "text": "14 representative days \u2014 every Sunday of June, July and August 2025."
+        },
+        "scale": {
+          "title": "From pilot areas to the city",
+          "text": "Pixel-level analysis on Centro and Fossolo (Talea pilot areas); zonal statistics across the whole of Bologna."
+        }
+      }
+    },
+    "indicatorsTitle": "What the index provides",
+    "indicatorsIntro": "Three complementary indicators, each addressing a different question about the spatio-temporal distribution of shade in Bologna.",
+    "indicators": {
+      "sampleDay": {
+        "label": "View 1",
+        "title": "Instantaneous shadows on the Talea focus areas",
+        "description": "Shadow maps at 15-minute resolution for three representative summer days (15 June, 13 July, 10 August 2025) over Centro and Fossolo. Each frame shows the instantaneous shade pattern at the selected time."
+      },
+      "aggregations": {
+        "label": "View 2",
+        "title": "Average shadow frequency by month and time band",
+        "description": "For each of the three summer months (June, July, August 2025), shadow frequency is computed over five time bands: early morning (6\u20139), morning (9\u201312), peak thermal (12\u201315), afternoon (15\u201318) and evening (18\u201321). Separate layers are available for ground-level shade, elevated surfaces (rooftops and canopies), and the aggregated shadow view (where buildings and trees count as shadow), over the Talea focus areas."
+      },
+      "polygons": {
+        "label": "View 3",
+        "title": "Zonal shadow statistics across Bologna",
+        "description": "Per-polygon shadow statistics (mean, median, standard deviation, percentiles) computed for the 6 districts, 90 statistical zones, ~4,000 green areas and ~10,000 street segments of the City of Bologna. Each polygon is analysed independently for each month and the same five time bands used in View 2."
+      }
+    },
+    "closingNote": "This is a first release of the index, based on summer 2025 data. Additional months, datasets and indicators will be added as the Talea project progresses. For technical details of the pipeline \u2014 ray-tracing, 3-bit encoding, temporal aggregation and zonal statistics \u2014 see the \u201cHow it works\u201d section."
+  },
+  "tabs": {
+    "day": { "label": "Sample Day", "desc": "Real-time shadows" },
+    "aggregations": { "label": "Aggregations", "desc": "Average temporal patterns" },
+    "polygons": { "label": "Statistics", "desc": "Spatial aggregation" },
+    "ariaLabel": "Exploration views"
+  },
+  "config": {
+    "areas": {
+      "centro": "Centro",
+      "fossolo": "Fossolo"
+    },
+    "periods": {
+      "month": "Full month",
+      "earlymorning": "Early morning (6\u201309)",
+      "morning": "Morning (9\u201312)",
+      "peakthermal": "Peak thermal (12\u201315)",
+      "afternoon": "Afternoon (15\u201318)",
+      "evening": "Evening (18\u201321)"
+    },
+    "polygonLayers": {
+      "quartieri": "Districts",
+      "stat_zones": "Statistical Zones",
+      "green_areas": "Green Areas",
+      "streets": "Street Segments"
+    },
+    "surfaceTypes": {
+      "ground": "Ground",
+      "roof": "Rooftops",
+      "both": "Ground + Rooftops",
+      "total": "Aggregated shadow"
+    },
+    "metrics": {
+      "mean": { "label": "Mean", "description": "Average shadow value" },
+      "median": { "label": "Median", "description": "Median shadow value" },
+      "std": { "label": "Std. deviation", "description": "Shadow variability inside the polygon" },
+      "pct_ge_50": { "label": "\u2265 50%", "description": "Percentage of time with shadow \u2265 50%" },
+      "pct_ge_75": { "label": "\u2265 75%", "description": "Percentage of time with shadow \u2265 75%" }
+    }
+  },
+  "controls": {
+    "area": "Area",
+    "date": "Date",
+    "month": "Month",
+    "time": "Time",
+    "period": "Time period",
+    "metric": "Metric",
+    "layer": "Layer",
+    "displayMode": "Display",
+    "satellite": "Satellite view",
+    "gray": "Grayscale",
+    "diverging": "Diverging",
+    "multi": "Categories",
+    "opacity": "Opacity",
+    "step": "Step",
+    "stepBack": "Back",
+    "stepForward": "Forward",
+    "surfaceType": "Surface type",
+    "colorMode": "Colour",
+    "surfaceTypeDesc": {
+      "ground": "Shadow frequency at ground level (1.5 m). Building rooftops are not shown.",
+      "roof_surface": "Shadow frequency on elevated surfaces (rooftops, canopies). The ground is not shown.",
+      "both": "Shows ground and rooftops simultaneously as two stacked layers.",
+      "total": "Aggregated shadow view: buildings and trees are treated as shadow, so every pixel covered by an elevated structure counts as shaded. This is the layer used for spatial aggregation statistics."
+    }
+  },
+  "dayExplorer": {
+    "viewNumber": "View 1",
+    "title": "Sample Day",
+    "description": "Observe how shadows move throughout the day. Select an area and date, then use the slider to scroll through the hours.",
+    "legendTitle": "Shading",
+    "sunPhases": {
+      "dawn": "Dawn",
+      "morning": "Morning",
+      "noon": "Midday",
+      "afternoon": "Afternoon",
+      "dusk": "Dusk"
+    },
+    "timeContext": "You are viewing shadows at {time} on {date} in the {area} area.",
+    "timeRangeNote": "Available times for this date: {start} \u2013 {end} (solar threshold > 5\u00b0)",
+    "info": {
+      "title": "Information \u2014 Sample Day",
+      "whatYouSee": "What you're seeing",
+      "whatYouSeeText": "This view shows the shadows cast by buildings at a specific moment of the day. The data is calculated from a Digital Surface Model (DSM) and a Digital Terrain Model (DTM) of the city of Bologna, using a high-resolution ray-tracing algorithm that physically simulates the trajectory of solar rays.",
+      "howToRead": "How to read the colours",
+      "howToReadMulti": "In \"Categories\" mode, each colour represents a different physical condition of the pixel, based on a 3-bit encoding that answers three distinct questions:",
+      "howToReadMultiList": [
+        "Is the ground at pedestrian level in shadow? (pedestrian shadow, G_h)",
+        "Is the elevated surface (roof, canopy) in shadow cast by itself or another elevated object? (surface shadow, S_h)",
+        "Is there an object (building, tree) above the analysis height? (object mask, M_h)"
+      ],
+      "howToReadSatellite": "In \"Satellite view\" mode, the map shows shadow as it would appear from above: shadow cast on the ground and shadow of buildings on other buildings.",
+      "howToReadGray": "In \"Grayscale\" mode, each category has a different grey intensity: darker means more shadow.",
+      "heightTitle": "Analysis height",
+      "heightText": "Shadows are calculated at a height of 1.5 metres + epsilon above ground level. This represents the approximate upper-torso height of an adult pedestrian. Using 1.5 m + \u03b5 also avoids errors from small objects just above the threshold.",
+      "timezoneTitle": "Timezone and hours",
+      "timezoneText": "All times are in Europe/Rome timezone (CET/CEST). The slider covers 6:00 to 21:00 in 15-minute intervals. Each position corresponds to a shadow map calculated for that exact time.",
+      "solarTitle": "Solar threshold",
+      "solarText": "Data is only calculated when the solar altitude is above 5 degrees over the horizon. This means that in the early morning hours (around 6:00) and late evening hours (around 21:00), some timestamps may not have available data.",
+      "datesTitle": "Available dates",
+      "datesText": "Three representative dates from the summer months are available: June 15, July 13 and August 10, 2025. Each date has a different range of available times, because the sun's position changes throughout the season. In June the sun rises earlier and sets later than in August.",
+      "disclaimerTitle": "Solar presence, not intensity",
+      "disclaimerText": "This map shows where the sun is present and where it isn't, not how intense it is. Late afternoon sun has a very different thermal impact than midday sun. This data indicates the presence/absence of direct sunlight, without weighting solar radiation by time of day."
+    }
+  },
+  "aggregationExplorer": {
+    "viewNumber": "View 2",
+    "title": "Temporal Aggregations",
+    "description": "Analyse average shadow patterns. This view does not show a single moment, but the typical shadow behaviour over a time period.",
+    "contextBox": "Aggregated shadow frequency for {month} during {period} in the {area} area. Surface: {surface}.",
+    "info": {
+      "title": "Information \u2014 Temporal Aggregations",
+      "whatYouSee": "What you're seeing",
+      "whatYouSeeText": "This view shows the average shadow pattern for a selected month and time band. It does not represent a single moment, but a statistical aggregation: for each month and each of five time bands, the system counted how many times each pixel was in shadow versus the total valid observations across all Sundays of that month (June: 5 Sundays, July: 4, August: 5), producing a shadow frequency (0\u2013100%).",
+      "freqExplainTitle": "What the frequency means",
+      "freqExplainText": "A value of 75% for a pixel means that, during the selected period, that point was in shadow 75% of the time. A value of 0% means it was always in sunlight (light colour), while 100% indicates it was always in shadow (dark colour).",
+      "surfaceTypesTitle": "Surface types",
+      "surfaceTypesText": "For each period, three distinct analysis layers are available because the model separates what happens on the ground from what happens above. You can choose them individually, stack them together, or use the \u201cAggregated shadow\u201d view where buildings and trees are also counted as shadow.",
+      "timeBandsTitle": "Time bands",
+      "timeBandsText": "For each month, shadow frequency is computed separately over five time bands. Each band includes hours from start (inclusive) to end (exclusive):",
+      "timeBandsList": {
+        "earlymorning": "Early morning: from 6:00 to 8:59 (hours 6, 7, 8)",
+        "morning": "Morning: from 9:00 to 11:59 (hours 9, 10, 11)",
+        "peakthermal": "Peak thermal: from 12:00 to 14:59 (hours 12, 13, 14)",
+        "afternoon": "Afternoon: from 15:00 to 17:59 (hours 15, 16, 17)",
+        "evening": "Evening: from 18:00 up to 20:59 where available (hours 18, 19, 20)"
+      },
+      "partialHoursTitle": "Partial hours",
+      "partialHoursText": "Hours 6 and 20 may contain incomplete data. Since data is only calculated with solar altitude > 5\u00b0, at dawn and dusk some timestamps may be excluded.",
+      "metricsTitle": "Available metrics",
+      "diffTitle": "Difference from View 1",
+      "diffText": "The \"Sample Day\" view shows a single moment in time. Here instead, you see the average shadow frequency aggregated over all valid observations within a given month and time band.",
+      "disclaimerTitle": "Solar presence, not intensity",
+      "disclaimerText": "This map shows how often a point is in shadow, not the intensity of solar radiation. A street with high solar exposure in the evening hours has a very different thermal impact from one with the same exposure during the central hours of the day. The data does not weight solar radiation by time of day."
+    }
+  },
+  "polygonExplorer": {
+    "viewNumber": "View 3",
+    "eyebrow": "Spatial aggregation",
+    "title": "Shadow Statistics by Spatial Unit",
+    "description": "Shadow statistics aggregated for each district, statistical zone, green area or street segment in Bologna. Each polygon is coloured by the selected metric. Statistics are computed only from the pixels inside each polygon, independently of the others. Switch detail level with the layer selector: 6 districts for a city-wide overview, street segments for fine-grained analysis.",
+    "loading": "Loading data\u2026",
+    "loadError": "Could not load data for this selection.",
+    "info": {
+      "title": "Information \u2014 Spatial Aggregation",
+      "whatYouSee": "What you're seeing",
+      "whatYouSeeText": "This view groups all the shadow pixels inside a polygon (district, statistical zone, green area or street segment) and computes statistics from them for each month and the same five time bands used in View 2. Each polygon has mean, median and percentile values calculated only from the pixels contained within it. Four different levels of detail let you move from a city-wide overview (6 districts) to single street-segment analysis.",
+      "sourceTitle": "Data source: \u201cAggregated shadow\u201d",
+      "sourceText": "The statistics in this view are computed on the \u201cAggregated shadow\u201d map \u2014 the same one available as a surface type in View 2. In that representation, buildings and trees are treated as shadow: every pixel covered by an elevated structure counts exactly like a shaded ground-level pixel. For example, a tree canopy counts as shadow even though the canopy itself is sunlit; a portico is counted as shadow because its roof is above 1.5 m. As a result, a zone with many tall buildings or dense vegetation will have high shadow values even when its open streets are sunlit.",
+      "meanOfMeansTitle": "Mean of means over the time range",
+      "meanOfMeansText": "The mean (and median) shown for the selected period is a mean of temporal means computed on the \u201cAggregated shadow\u201d map. In other words, for each month and time band in the selected range we compute the polygon\u2019s spatial mean on the aggregated shadow view, then those temporal means are averaged again. This makes comparisons across periods more stable than a single point-in-time average.",
+      "independentTitle": "Per-polygon calculation",
+      "independentText": "Important: every polygon is analysed completely independently. The value shown for a specific polygon represents only the pixels inside it and is NOT normalised or compared with the other polygons. Two polygons with the same colour have the same shadow frequency in absolute terms, but their real microclimatic context (sun exposure, surrounding building heights, vegetation) can be very different.",
+      "layersTitle": "Available layers",
+      "layers": {
+        "quartieri": "the six administrative districts that make up the City of Bologna; the most synthetic overview, ideal for comparing large portions of the city",
+        "stat_zones": "official territorial units of the City of Bologna used for demographic analysis and urban planning",
+        "green_areas": "parks, gardens, play areas and green spaces catalogued by the City of Bologna",
+        "streets": "segments of the Bologna street network; each segment is analysed as a separate polygon"
+      },
+      "metricsTitle": "Available metrics",
+      "metricsList": {
+        "mean": "average shadow frequency over the polygon's pixels (0\u20131, where 1 = always in shade)",
+        "median": "median shadow frequency inside the polygon",
+        "std": "standard deviation of shadow frequency inside the polygon: it measures how homogeneous or heterogeneous the pixels are. A low value means the whole polygon has similar exposure (all sunlit or all shaded). A high value means very sunny and very shaded patches coexist, even if the average sits in between."
+      },
+      "colorScaleTitle": "Color scale (0\u2013100%)",
+      "colorScaleText": "Colours use a diverging RdYlBu scale: 0% shadow (always sunlit) is red, 50% is pale yellow, and 100% (always shaded) is deep blue. Because the scale is fixed and absolute, colours are directly comparable across polygons, months and time bands.",
+      "interactionTitle": "Interaction & search",
+      "interactionText": "Hover over a polygon on the map to see its name, area and full statistics. Use the search bar above the table to filter by name (zone, park or street segment). Click table headers to sort.",
+      "disclaimerTitle": "Solar presence, not intensity",
+      "disclaimerText": "Values shown reflect shadow frequency, not solar radiation intensity. A zone with high evening sun exposure has a very different thermal impact than the same exposure during midday hours. See the information in View 2 and the \u201cHow it works\u201d section for more details."
+    }
+  },
+  "legend": {
+    "shadow": {
+      "pixel0": "Sunlit ground",
+      "pixel0Desc": "Open ground with no buildings or trees, exposed to direct sunlight.",
+      "pixel1": "Ground shadow",
+      "pixel1Desc": "The ground is in shadow, cast by a building, tree, or other structure.",
+      "pixelElevatedSun": "Elevated surface in sun (Buildings, Trees)",
+      "pixelElevatedSunDesc": "A building, tree or other elevated structure whose surface is exposed to sunlight, seen from above.",
+      "pixelElevatedShadow": "Elevated surface in shadow (Buildings, Trees)",
+      "pixelElevatedShadowDesc": "A building, tree or other elevated structure whose surface is in shadow, cast by itself or a neighbouring structure.",
+      "satelliteSun": "In sunlight",
+      "satelliteSunDesc": "Surface visible from above is in direct sunlight.",
+      "satelliteShadow": "In shadow",
+      "satelliteShadowDesc": "Surface visible from above is in shadow.",
+      "satelliteNote": "Top-down view: shows shadow visible on the ground and on buildings, as in a satellite image."
+    },
+    "aggregation": {
+      "p0":   "0% \u2014 always in sun",
+      "p10":  "10% in shadow",
+      "p20":  "20% in shadow",
+      "p30":  "30% in shadow",
+      "p40":  "40% in shadow",
+      "p50":  "50% \u2014 half and half",
+      "p60":  "60% in shadow",
+      "p70":  "70% in shadow",
+      "p80":  "80% in shadow",
+      "p90":  "90% in shadow",
+      "p100": "100% \u2014 always in shadow"
+    },
+    "polygon": {
+      "p0":   "0% \u2014 always in sun",
+      "p10":  "10% in shadow",
+      "p20":  "20% in shadow",
+      "p30":  "30% in shadow",
+      "p40":  "40% in shadow",
+      "p50":  "50% \u2014 half and half",
+      "p60":  "60% in shadow",
+      "p70":  "70% in shadow",
+      "p80":  "80% in shadow",
+      "p90":  "90% in shadow",
+      "p100": "100% \u2014 always in shadow"
+    }
+  },
+  "methodology": {
+    "sectionTitle": "How it works",
+    "sectionSubtitle": "Discover how urban shadows are calculated",
+    "intro": "Shadow calculation is based on the city's three-dimensional morphology. By using high-resolution 3D models, the sun's position is simulated at various times of the day to determine where direct sunlight reaches the ground and elevated surfaces.",
+    "whatWeModel": {
+      "title": "What we model",
+      "text": "We start from two digital models of the city: the DTM (Digital Terrain Model), which represents the bare ground without buildings or vegetation, and the DSM (Digital Surface Model), which includes all elevated elements such as buildings, trees and infrastructure. By comparing these two models and simulating the exact position of the sun at every moment, we can precisely calculate where shadows fall."
+    },
+    "threeQuestions": {
+      "title": "Three questions for every point",
+      "text": "For every point in the city, at every moment in time, our model answers three fundamental questions:",
+      "q1": "Is the ground at pedestrian level (1.5 m) in shadow?",
+      "q1detail": "It indicates whether a pedestrian at that point would be in sun or shade.",
+      "q2": "Is the elevated surface (roof, canopy) in shadow cast by itself or another elevated object?",
+      "q2detail": "Detects when a building or tree casts shadow on its own surface or on neighbouring elevated structures. Useful for understanding the solar exposure of roofs and tree canopies, relevant for solar energy and vegetation health.",
+      "q3": "Is there a structure (building, tree) at that point?",
+      "q3detail": "Distinguishes open ground (streets, squares, parks) from areas occupied by buildings or vegetation."
+    },
+    "pedestrianHeight": {
+      "title": "Why 1.5 metres?",
+      "text": "The analysis height of 1.5 metres + epsilon represents the approximate upper-torso height of an adult pedestrian. Using 1.5 m + ε as the cut-off also avoids calculation errors caused by small objects (street furniture, low walls)."
+    },
+    "timezone": {
+      "title": "Timezone and period",
+      "text": "All data uses the Europe/Rome timezone (CET in winter, CEST in summer). Simulations cover the hours from 6:00 to 21:00 with a temporal resolution of 15 minutes."
+    },
+    "solarThreshold": {
+      "title": "Solar altitude threshold",
+      "text": "The model only calculates shadows when the sun is more than 5 degrees above the horizon. This excludes dawn and dusk moments when shadows would be extremely long and unreliable. As a result, the hours 6:00 and 21:00 may contain partial data."
+    },
+    "gpuNote": {
+      "title": "Technology",
+      "text": "The simulations use a GPU-accelerated ray-tracing algorithm that casts rays starting from each pixel of the 0.5 × 0.5 m 3D city model (with a computation step of pixel/2), ensuring high spatial precision. Each ray is tested against the full DSM geometry to determine sun or shadow status."
+    }
+  },
+  "limitations": {
+    "sectionTitle": "Model assumptions and limitations",
+    "intro": "It is important to understand the model's limitations to correctly interpret the results.",
+    "solarDisclaimer": {
+      "title": "Solar presence \u2260 Solar intensity",
+      "text": "This is the most important information to keep in mind: the data shows WHERE the sun is present and for HOW LONG, but does not weight the intensity of solar radiation. The sun at 18:00 has a completely different thermal impact than the sun at 12:00, even though both are counted equally. If a street shows high sun exposure in the evening hours, this is not equivalent to the same exposure during the hottest hours of the day."
+    },
+    "opaqueCanopy": {
+      "title": "Vegetation as opaque body",
+      "text": "The model treats all elevated objects (including trees) as fully opaque. In reality, tree canopies partially filter light. This makes shadow estimates under trees conservative (more shadow than actual)."
+    },
+    "transientObjects": {
+      "title": "Transient objects",
+      "text": "The DSM captures the state of the city at the time of survey. Parked vehicles, scaffolding, cranes and other temporary structures present during the survey are treated as permanent obstacles."
+    },
+    "waterBodies": {
+      "title": "Water bodies",
+      "text": "Rivers and water surfaces can introduce artefacts in the DSM due to reflection during LIDAR acquisition. The object mask (M_h) in these areas may be inaccurate."
+    },
+    "multiLevel": {
+      "title": "Multi-level infrastructure",
+      "text": "Structures such as bridges, overpasses and porticoes are collapsed into a single height value in the DSM. Interpreting shadows under these structures requires caution."
+    },
+    "nearHorizon": {
+      "title": "Near-horizon exclusion",
+      "text": "Simulations exclude moments with solar altitude \u2264 5\u00b0. The data therefore represents the \u201coperational daylight\u201d window rather than the full astronomical day."
+    },
+    "shadowNotCooler": {
+      "title": "Shadow \u2260 cooler",
+      "text": "Shadow indicates the absence of direct sunlight, not necessarily lower temperatures. Materials like asphalt and stone retain heat long after the sun has moved, while vegetation cools through evapotranspiration even in sunlit areas. A shaded street with dark pavement can be warmer than an open park with grass and trees."
+    }
+  },
+  "dataTable": {
+    "title": "Data \u2014 {layer}",
+    "name": "Name",
+    "category": "Category",
+    "area": "Area (m\u00b2)",
+    "interpretation": "Interpretation",
+    "searchPlaceholder": "Search by name\u2026",
+    "showingCount": "{shown} of {total}",
+    "showingRange": "{from}\u2013{to} of {total}",
+    "pageOf": "Page {page} of {total}",
+    "first": "First page",
+    "prev": "Previous page",
+    "next": "Next page",
+    "last": "Last page",
+    "noResults": "No results for \u00ab{query}\u00bb",
+    "emptyText": "Table data will be loaded with the dataset.",
+    "emptyHint": "Select a layer, month and period to view values."
+  },
+  "hoverCard": {
+    "perPolygonNote": "Statistics computed only on this polygon.",
+    "selected": "Selected"
+  },
+  "mapPlaceholder": "Shadow data layers will be displayed here",
+  "common": {
+    "info": "Info",
+    "close": "Close",
+    "understood": "Got it, close",
+    "information": "Information",
+    "loading": "Loading\u2026",
+    "loadError": "Could not load the map.",
+    "retry": "Retry"
+  },
+  "basemaps": {
+    "label": "Basemap",
+    "osm": "OpenStreetMap",
+    "dark": "Dark",
+    "light": "Light",
+    "ortho": "Bologna orthophoto"
+  },
+  "footer": {
+    "tagline": "Green cells leading the Green transition",
+    "funding": "Project co-funded by the European Union",
+    "eui": "European Urban Initiative",
+    "credits": "City of Bologna \u2014 TALEA EUI102-064"
+  },
+  "timeBands": {
+    "note6": "Hour 6 may have incomplete data (solar threshold > 5\u00b0)",
+    "note20": "Hour 20 may have incomplete data (solar threshold > 5\u00b0)"
+  }
+}
