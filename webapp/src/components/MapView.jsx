@@ -7,7 +7,7 @@ import {
   boundsToCoordinates,
 } from '../utils/cogLoader';
 import { buildPolygonFillExpression } from '../utils/polygonColors';
-import { getBasemap } from '../data/basemaps';
+import { getBasemap, resolveBasemapStyle } from '../data/basemaps';
 
 // One source/layer per slot. Up to 2 stacked rasters.
 const SHADOW_SLOTS = [
@@ -21,9 +21,60 @@ const POLY_FILL_LAYER = 'spatial-agg-fill';
 const POLY_OUTLINE_LAYER = 'spatial-agg-outline';
 const POLY_SELECTED_OUTLINE_LAYER = 'spatial-agg-selected-outline';
 
-// Basemap source/layer ids — swapped wholesale when basemapId changes.
-const BASEMAP_SOURCE_ID = 'basemap-source';
-const BASEMAP_LAYER_ID = 'basemap-layer';
+const PRESERVED_SOURCE_IDS = [
+  ...SHADOW_SLOTS.map((slot) => slot.sourceId),
+  POLY_SOURCE_ID,
+];
+
+const PRESERVED_LAYER_IDS = [
+  ...SHADOW_SLOTS.map((slot) => slot.layerId),
+  POLY_FILL_LAYER,
+  POLY_OUTLINE_LAYER,
+  POLY_SELECTED_OUTLINE_LAYER,
+];
+
+function getOverlayBeforeId(map, slot) {
+  for (let nextSlot = slot + 1; nextSlot < SHADOW_SLOTS.length; nextSlot++) {
+    const nextLayerId = SHADOW_SLOTS[nextSlot].layerId;
+    if (map.getLayer(nextLayerId)) return nextLayerId;
+  }
+  if (map.getLayer(POLY_FILL_LAYER)) return POLY_FILL_LAYER;
+  if (map.getLayer(POLY_OUTLINE_LAYER)) return POLY_OUTLINE_LAYER;
+  if (map.getLayer(POLY_SELECTED_OUTLINE_LAYER)) return POLY_SELECTED_OUTLINE_LAYER;
+  return undefined;
+}
+
+function preserveDynamicLayers(previousStyle, nextStyle) {
+  if (!previousStyle) return nextStyle;
+
+  const preservedSources = Object.fromEntries(
+    PRESERVED_SOURCE_IDS
+      .filter((sourceId) => previousStyle.sources?.[sourceId])
+      .map((sourceId) => [sourceId, previousStyle.sources[sourceId]]),
+  );
+
+  const preservedLayers = (previousStyle.layers || []).filter(
+    (layer) => PRESERVED_LAYER_IDS.includes(layer.id),
+  );
+
+  if (Object.keys(preservedSources).length === 0 && preservedLayers.length === 0) {
+    return nextStyle;
+  }
+
+  return {
+    ...nextStyle,
+    sources: {
+      ...nextStyle.sources,
+      ...preservedSources,
+    },
+    layers: [
+      ...(nextStyle.layers || []),
+      ...preservedLayers.filter(
+        (layer) => !(nextStyle.layers || []).some((nextLayer) => nextLayer.id === layer.id),
+      ),
+    ],
+  };
+}
 
 export default function MapView({
   center,
@@ -37,7 +88,7 @@ export default function MapView({
   imageBounds,
   displayMode,
   opacity = 0.85,
-  basemapId = 'osm', // basemap catalog id — swapped via effect
+  basemapId = 'osm', // basemap catalog id — mapped to a basemap style
   reloadNonce = 0,   // bump to force re-render of the current slot(s)
   onMapReady,
   onLoadingChange,   // (boolean) — true while any COG slot is rendering
@@ -57,8 +108,11 @@ export default function MapView({
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const [mapReady, setMapReady] = useState(false);
+  const [styleRevision, setStyleRevision] = useState(0);
   // One blob URL slot per stacked layer
   const blobUrlsRef = useRef([null, null]);
+  const slotBoundsRef = useRef([null, null]);
+  const appliedBasemapIdRef = useRef(getBasemap(basemapId).id);
   // Render-id counters per slot — discard stale renders
   const renderIdsRef = useRef([0, 0]);
   // Loading flags per slot, used to drive `onLoadingChange`.
@@ -127,6 +181,16 @@ export default function MapView({
       URL.revokeObjectURL(u);
       blobUrlsRef.current[slot] = null;
     }
+    slotBoundsRef.current[slot] = null;
+  }, []);
+
+  const rememberSlotBlob = useCallback((slot, blobUrl, bounds) => {
+    const currentUrl = blobUrlsRef.current[slot];
+    if (currentUrl && currentUrl !== blobUrl) {
+      URL.revokeObjectURL(currentUrl);
+    }
+    blobUrlsRef.current[slot] = blobUrl;
+    slotBoundsRef.current[slot] = bounds;
   }, []);
 
   const removeSlotFromMap = useCallback((slot) => {
@@ -156,32 +220,50 @@ export default function MapView({
     const map = mapRef.current;
     if (!map) return;
 
-    revokeSlot(slot);
-    blobUrlsRef.current[slot] = blobUrl;
+    rememberSlotBlob(slot, blobUrl, bounds);
 
     const { sourceId, layerId } = SHADOW_SLOTS[slot];
     const coords = boundsToCoordinates(bounds);
-    const source = map.getSource(sourceId);
+    const beforeId = getOverlayBeforeId(map, slot);
 
-    if (source) {
-      source.updateImage({ url: blobUrl, coordinates: coords });
-    } else {
-      map.addSource(sourceId, {
-        type: 'image',
-        url: blobUrl,
-        coordinates: coords,
-      });
-      map.addLayer({
-        id: layerId,
-        type: 'raster',
-        source: sourceId,
-        paint: {
-          'raster-fade-duration': 0,
-          'raster-opacity': opacityRef.current,
-        },
-      });
+    try {
+      const source = map.getSource(sourceId);
+
+      if (source) {
+        source.updateImage({ url: blobUrl, coordinates: coords });
+      } else {
+        map.addSource(sourceId, {
+          type: 'image',
+          url: blobUrl,
+          coordinates: coords,
+        });
+      }
+
+      if (!map.getLayer(layerId)) {
+        map.addLayer(
+          {
+            id: layerId,
+            type: 'raster',
+            source: sourceId,
+            paint: {
+              'raster-fade-duration': 0,
+              'raster-opacity': opacityRef.current,
+            },
+          },
+          beforeId,
+        );
+      } else if (beforeId) {
+        map.moveLayer(layerId, beforeId);
+      }
+    } catch (err) {
+      const msg = (err && err.message) || '';
+      // During a basemap swap, style changes can temporarily reject source/layer
+      // mutations. The style-load effect retries from the remembered blob refs.
+      if (!msg.includes('Style is not done loading')) {
+        throw err;
+      }
     }
-  }, [revokeSlot]);
+  }, [rememberSlotBlob]);
 
   /**
    * Render pipeline for one slot.
@@ -222,15 +304,9 @@ export default function MapView({
   useEffect(() => {
     if (mapRef.current) return;
 
-    // Start with an empty style — the basemap is installed via a dedicated
-    // effect so it can be swapped without disturbing the COG/polygon layers.
     const map = new maplibregl.Map({
       container: containerRef.current,
-      style: {
-        version: 8,
-        sources: {},
-        layers: [],
-      },
+      style: resolveBasemapStyle(getBasemap(appliedBasemapIdRef.current)),
       center: center || [11.3416, 44.5022],
       zoom: zoom || 16,
       minZoom: typeof minZoom === 'number' ? minZoom : undefined,
@@ -241,6 +317,10 @@ export default function MapView({
 
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     map.addControl(new maplibregl.ScaleControl(), 'bottom-left');
+
+    map.on('style.load', () => {
+      setStyleRevision((revision) => revision + 1);
+    });
 
     map.on('load', () => {
       mapRef.current = map;
@@ -336,40 +416,34 @@ export default function MapView({
     };
   }, [mapReady, center?.[0], center?.[1], zoom, maxBounds]);
 
-  // ---- basemap: install / swap the bottom raster layer ----
+  // ---- basemap: swap the active basemap style ----
   useEffect(() => {
     if (!mapReady) return;
     const map = mapRef.current;
     if (!map) return;
     const basemap = getBasemap(basemapId);
 
-    // Tear down any existing basemap.
-    if (map.getLayer(BASEMAP_LAYER_ID)) map.removeLayer(BASEMAP_LAYER_ID);
-    if (map.getSource(BASEMAP_SOURCE_ID)) map.removeSource(BASEMAP_SOURCE_ID);
-
-    map.addSource(BASEMAP_SOURCE_ID, {
-      type: 'raster',
-      tiles: basemap.tiles,
-      tileSize: basemap.tileSize || 256,
-      attribution: basemap.attribution || '',
-      maxzoom: basemap.maxzoom || 19,
+    if (appliedBasemapIdRef.current === basemap.id) return;
+    appliedBasemapIdRef.current = basemap.id;
+    map.setStyle(resolveBasemapStyle(basemap), {
+      transformStyle: preserveDynamicLayers,
     });
-
-    // Insert the basemap at the bottom of the layer stack so COG/polygon
-    // layers stay on top — pick the first existing layer as `beforeId`.
-    const layers = map.getStyle().layers || [];
-    const beforeId = layers.length > 0 ? layers[0].id : undefined;
-    map.addLayer(
-      {
-        id: BASEMAP_LAYER_ID,
-        type: 'raster',
-        source: BASEMAP_SOURCE_ID,
-        minzoom: 0,
-        maxzoom: basemap.maxzoom || 19,
-      },
-      beforeId,
-    );
   }, [mapReady, basemapId]);
+
+  // ---- after every style load, re-attach any active shadow rasters ----
+  useEffect(() => {
+    if (!mapReady) return;
+    const map = mapRef.current;
+    if (!map || !map.isStyleLoaded()) return;
+
+    for (let s = 0; s < SHADOW_SLOTS.length; s++) {
+      const blobUrl = blobUrlsRef.current[s];
+      const bounds = slotBoundsRef.current[s];
+      if (activeSlotsRef.current[s] && blobUrl && bounds) {
+        applyBlobToSlot(s, blobUrl, bounds);
+      }
+    }
+  }, [mapReady, styleRevision, applyBlobToSlot]);
 
   // ---- (re)render slots whenever URLs or display mode change ----
   useEffect(() => {
@@ -511,14 +585,14 @@ export default function MapView({
     polyHoverHandlerRef.current = onMove;
     polyLeaveHandlerRef.current = onLeave;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapReady, polygonGeoJSON, polygonMetric, onPolygonHover]);
+  }, [mapReady, styleRevision, polygonGeoJSON, polygonMetric, onPolygonHover]);
 
   // Live polygon opacity updates (no layer rebuild).
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !map.getLayer(POLY_FILL_LAYER)) return;
     map.setPaintProperty(POLY_FILL_LAYER, 'fill-opacity', polygonOpacity);
-  }, [polygonOpacity, polygonGeoJSON]);
+  }, [styleRevision, polygonOpacity, polygonGeoJSON]);
 
   // Highlight the currently-selected polygon by feature_idx.
   useEffect(() => {
@@ -533,7 +607,7 @@ export default function MapView({
         polygonSelectedFeatureIdx,
       ]);
     }
-  }, [polygonSelectedFeatureIdx, polygonGeoJSON]);
+  }, [styleRevision, polygonSelectedFeatureIdx, polygonGeoJSON]);
 
   // Walk a GeoJSON coordinate tree and accumulate into a LngLatBounds.
   const walkCoordsIntoBounds = useCallback((coords, bounds) => {

@@ -1,68 +1,62 @@
 // Basemap catalog for the Talea shadow webapp.
-// Each entry is a plain MapLibre raster-source definition; MapView installs
-// the active one as the bottom layer in the map style.
-//
-// Notes:
-//  - Bologna ortophoto comes from the official municipal tile server.
-//    Source: https://opendata.comune.bologna.it/explore/dataset/tile-server-ortofoto-comune-di-bologna/
-//    The docs publish the tile template under http://; https works in the
-//    browser in practice. If mixed-content is ever an issue in production,
-//    switch to http:// on that line.
-//  - CartoDB light/dark tiles are free to use without a token under the
-//    CartoDB basemaps program (ODbL attribution).
+// Street-map styles use OpenFreeMap. The Bologna ortho option remains a
+// dedicated raster style from the municipal tile service.
+
+const BOLOGNA_ORTHO_STYLE = {
+  version: 8,
+  sources: {
+    'bologna-ortho-source': {
+      type: 'raster',
+      tiles: [
+        'https://sitmappe.comune.bologna.it/tms/tileserver/Ortofoto2025/{z}/{x}/{y}.png',
+      ],
+      tileSize: 256,
+      attribution:
+        '&copy; Comune di Bologna &mdash; Ortofoto 2025 (<a href="https://opendata.comune.bologna.it/">Open Data</a>)',
+      maxzoom: 21,
+    },
+  },
+  layers: [
+    {
+      id: 'bologna-ortho-layer',
+      type: 'raster',
+      source: 'bologna-ortho-source',
+      minzoom: 0,
+      maxzoom: 21,
+    },
+  ],
+};
 
 export const BASEMAPS = [
   {
     id: 'osm',
     labelKey: 'basemaps.osm',
-    tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-    tileSize: 256,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxzoom: 19,
+    styleUrl: 'https://tiles.openfreemap.org/styles/liberty',
   },
   {
     id: 'cartodb-dark',
     labelKey: 'basemaps.dark',
-    tiles: [
-      'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-      'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-      'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-    ],
-    tileSize: 256,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    maxzoom: 20,
+    styleUrl: 'https://tiles.openfreemap.org/styles/dark',
   },
   {
     id: 'cartodb-light',
     labelKey: 'basemaps.light',
-    tiles: [
-      'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-      'https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-      'https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-    ],
-    tileSize: 256,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    maxzoom: 20,
+    styleUrl: 'https://tiles.openfreemap.org/styles/positron',
   },
   {
     id: 'bologna-ortho',
     labelKey: 'basemaps.ortho',
-    tiles: [
-      'https://sitmappe.comune.bologna.it/tms/tileserver/Ortofoto2025/{z}/{x}/{y}.png',
-    ],
-    tileSize: 256,
-    attribution:
-      '&copy; Comune di Bologna &mdash; Ortofoto 2025 (<a href="https://opendata.comune.bologna.it/">Open Data</a>)',
-    maxzoom: 21,
+    style: BOLOGNA_ORTHO_STYLE,
   },
 ];
 
-// Look up a basemap by id; falls back to the first entry (OSM).
+// Look up a basemap by id; falls back to the first entry.
 export function getBasemap(id) {
   return BASEMAPS.find((b) => b.id === id) || BASEMAPS[0];
+}
+
+export function resolveBasemapStyle(basemap) {
+  return basemap.style || basemap.styleUrl;
 }
 
 // Per-view default basemap picks.
