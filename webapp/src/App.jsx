@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
 import MethodologySection from './components/MethodologySection';
 import AboutSection from './components/AboutSection';
 import SectionTabs from './components/SectionTabs';
@@ -8,6 +7,7 @@ import DayExplorer from './components/DayExplorer';
 import AggregationExplorer from './components/AggregationExplorer';
 import PolygonExplorer from './components/PolygonExplorer';
 import Footer from './components/Footer';
+import CookieBanner from './components/CookieBanner';
 import { MANIFEST } from './data/config';
 import './App.css';
 
@@ -36,8 +36,6 @@ export default function App() {
   return (
     <div className="app-shell">
       <Header />
-
-      <Hero />
 
       <MethodologySection
         isOpen={methodologyOpen}
@@ -106,6 +104,8 @@ export default function App() {
       </main>
 
       <Footer />
+
+      <CookieBanner />
     </div>
   );
 }

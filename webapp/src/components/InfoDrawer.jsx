@@ -12,9 +12,10 @@ export default function InfoDrawer({ isOpen, onClose, title, triggerRef, childre
 
     // Scroll the explorer's map section into view so the
     // fixed info drawer overlay sits nicely over the content
+    const isMobile = window.matchMedia('(max-width: 700px)').matches;
     const explorer = triggerRef?.current?.closest('.explorer');
     const mapSection = explorer?.querySelector('.map-section');
-    if (mapSection) {
+    if (mapSection && !isMobile) {
       mapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 

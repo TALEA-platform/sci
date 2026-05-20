@@ -26,14 +26,13 @@ export default function Header() {
   return (
     <header ref={headerRef} className="header" role="banner">
       <a href="#explorer" className="skip-link">{t('header.skipLink')}</a>
-      <div className="header-accent" aria-hidden="true" />
       <div className="header-inner">
         <div className="header-brand">
           <div className="header-logo-wrap">
             <img src="./talea-logo.png" alt="Talea" className="header-logo" />
           </div>
           <div className="header-text">
-            <h1>Talea</h1>
+            <h1>{t('header.title')}</h1>
             <span className="header-subtitle">{t('header.subtitle')}</span>
           </div>
         </div>
@@ -44,11 +43,12 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className="header-link"
+            aria-label={t('header.projectLink')}
           >
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
             </svg>
-            {t('header.projectLink')}
+            <span className="header-link-label">{t('header.projectLink')}</span>
           </a>
         </nav>
       </div>

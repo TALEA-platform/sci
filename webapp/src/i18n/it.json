@@ -1,15 +1,14 @@
 {
   "header": {
     "skipLink": "Vai al contenuto",
-    "subtitle": "Shadow Coverage Index",
-    "projectLink": "Progetto Talea"
-  },
-  "hero": {
-    "badge": "Progetto Talea \u2014 Comune di Bologna",
     "title": "Shadow Coverage Index",
     "subtitle": "Indicatore spazio-temporale della presenza di ombra in ambito urbano per la resilienza climatica",
-    "cta": "Inizia l'esplorazione",
-    "ariaLabel": "Introduzione"
+    "projectLink": "Progetto Talea"
+  },
+  "cookie": {
+    "ariaLabel": "Informativa cookie e archiviazione locale",
+    "message": "Questo sito utilizza l'archiviazione locale del browser solo per ricordare che hai già visto questa informativa. Non vengono usati cookie di tracciamento né analisi di terze parti. Le mappe di base sono fornite da OpenFreeMap e dal tile server del Comune di Bologna, che possono registrare i dati standard delle richieste.",
+    "accept": "Ho capito"
   },
   "about": {
     "buttonLabel": "Panoramica",
@@ -392,12 +391,6 @@
     "dark": "Scuro",
     "light": "Chiaro",
     "ortho": "Ortofoto Bologna"
-  },
-  "footer": {
-    "tagline": "Green cells leading the Green transition",
-    "funding": "Progetto co-finanziato dall'Unione Europea",
-    "eui": "European Urban Initiative",
-    "credits": "Comune di Bologna \u2014 TALEA EUI102-064"
   },
   "timeBands": {
     "note6": "L'ora 6 potrebbe avere dati incompleti (soglia solare > 5\u00b0)",

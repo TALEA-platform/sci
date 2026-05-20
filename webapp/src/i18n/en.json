@@ -1,15 +1,14 @@
 {
   "header": {
     "skipLink": "Skip to content",
-    "subtitle": "Shadow Coverage Index",
+    "title": "Shadow Coverage Index",
+    "subtitle": "Spatio-temporal indicator of urban shade coverage for climate resilience",
     "projectLink": "Talea Project"
   },
-  "hero": {
-    "badge": "Talea Project \u2014 City of Bologna",
-    "title": "Shadow Coverage Index",
-    "subtitle": "Spatio-temporal indicator of shadow presence in urban environments for climate resilience",
-    "cta": "Start exploring",
-    "ariaLabel": "Introduction"
+  "cookie": {
+    "ariaLabel": "Cookie and storage notice",
+    "message": "This site uses local storage only to remember that you have seen this notice. No tracking cookies or third-party analytics are used. Map tiles are served by OpenFreeMap and the Comune di Bologna tile server, which may log standard request data.",
+    "accept": "Got it"
   },
   "about": {
     "buttonLabel": "Overview",
@@ -392,12 +391,6 @@
     "dark": "Dark",
     "light": "Light",
     "ortho": "Bologna orthophoto"
-  },
-  "footer": {
-    "tagline": "Green cells leading the Green transition",
-    "funding": "Project co-funded by the European Union",
-    "eui": "European Urban Initiative",
-    "credits": "City of Bologna \u2014 TALEA EUI102-064"
   },
   "timeBands": {
     "note6": "Hour 6 may have incomplete data (solar threshold > 5\u00b0)",
