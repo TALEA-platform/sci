@@ -3533,6 +3533,10 @@
     order: 0;
   }
 
+  .explorer-map {
+    height: clamp(460px, 68vw, 540px);
+  }
+
   .legend,
   .map-opacity-control,
   .display-mode-note {
@@ -3587,15 +3591,17 @@
   }
 
   .info-drawer {
-    top: max(10px, env(safe-area-inset-top));
-    right: max(10px, env(safe-area-inset-right));
-    bottom: max(10px, env(safe-area-inset-bottom));
-    left: max(10px, env(safe-area-inset-left));
-    width: auto;
-    max-width: none;
-    max-height: calc(100vh - 20px);
-    max-height: calc(100dvh - 20px);
-    transform: none;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: 50%;
+    width: min(640px, calc(100vw - 24px));
+    height: min(680px, calc(100vh - 24px));
+    height: min(680px, calc(100dvh - 24px));
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    transform: translate(-50%, -50%);
     border-radius: var(--radius-lg);
     animation: mobileInfoDrawerIn 0.25s ease-out;
   }
@@ -3603,11 +3609,11 @@
   @keyframes mobileInfoDrawerIn {
     from {
       opacity: 0;
-      transform: translateY(10px) scale(0.98);
+      transform: translate(-50%, -48%) scale(0.98);
     }
     to {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translate(-50%, -50%) scale(1);
     }
   }
 
@@ -3633,6 +3639,58 @@
   .info-drawer-footer {
     flex-shrink: 0;
     padding: var(--space-3) var(--space-4);
+  }
+
+  .methodology-modal {
+    top: 50%;
+    left: 50%;
+    width: min(660px, calc(100vw - 24px));
+    height: min(760px, calc(100vh - 24px));
+    height: min(760px, calc(100dvh - 24px));
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    border-radius: var(--radius-lg);
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes methodologyModalIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -48%) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .methodology-modal-header {
+    flex-shrink: 0;
+    align-items: center;
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .methodology-modal-header-text h2 {
+    font-size: 20px;
+    line-height: 1.15;
+  }
+
+  .methodology-modal-header-text p {
+    line-height: 1.35;
+  }
+
+  .methodology-modal-close {
+    width: 40px;
+    height: 40px;
+    align-self: center;
+  }
+
+  .methodology-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: var(--space-5);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 }
 
