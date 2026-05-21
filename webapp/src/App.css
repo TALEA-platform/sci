@@ -94,8 +94,8 @@
   font-weight: 600;
   color: #17231a;
   line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: none;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .header-link {
@@ -1916,6 +1916,7 @@
     display: block;
     font-size: 11px;
     line-height: 1.25;
+    letter-spacing: 0.3px;
     white-space: normal;
     overflow-wrap: anywhere;
   }
@@ -3323,7 +3324,7 @@
     max-width: 100%;
     font-size: clamp(10px, 2.3vw, 11.5px);
     line-height: 1.25;
-    letter-spacing: 0;
+    letter-spacing: 0.3px;
     white-space: normal;
     overflow-wrap: anywhere;
   }
